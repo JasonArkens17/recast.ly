@@ -5,7 +5,7 @@ var App = () => (
       <VideoPlayer/>
     </div>
     <div className="col-md-5">
-      <VideoList/>
+      <VideoList videos={exampleVideoData}/>
     </div>
   </div>
 );
