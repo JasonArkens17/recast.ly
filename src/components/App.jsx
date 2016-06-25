@@ -28,7 +28,6 @@ class App extends React.Component {
     this.setState({
       current: video
     });
-    console.log(video.items[0]);
   }
 
   getVideos(video) {
@@ -36,12 +35,10 @@ class App extends React.Component {
       current: video.items[0],
       videos: video.items
     });
-    console.log(this.videos);
   }
 
   search() {
     searchYouTube(this.getVideos.bind(this));
-
   }
 
   render() {

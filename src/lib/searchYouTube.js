@@ -1,6 +1,6 @@
 var searchYouTube = (callback) => {
 
-  options = {
+  var options = {
     key: 'AIzaSyAzGu37lhNLdAnasxUx-N-1qUQMbzCz0MA',
     part: 'snippet',
     q: $('.form-control').val(),
