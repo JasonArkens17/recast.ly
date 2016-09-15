@@ -10,6 +10,8 @@
 //   </div>
 // );
 
+//Version above for comparrison only. Do not uncomment! 
+
 var VideoListEntry = (props) => (
   <div className="video-list-entry">
     <div className="media-left media-middle">
