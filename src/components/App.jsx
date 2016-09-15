@@ -1,58 +1,55 @@
-// var App = () => (
-//   <div>
-//     <Nav />
-//     <div className="col-md-7">
-//       <VideoPlayer video={exampleVideoData[0]} />
-//     </div>
-//     <div className="col-md-5">
-//       <VideoList videos={exampleVideoData} />
-//     </div>
-//   </div>
-// );
-
-// // In the ES6 spec, files are "modules" and do not share a top-level scope
-// // `var` declarations will only exist globally where explicitly defined
-// window.App = App;
-
 class App extends React.Component {
   constructor(props) {
     super(props);
-    //this.videos = exampleVideoData;
-    this.state = { 
-      current: exampleVideoData[0],
-      videos: exampleVideoData
-    }; 
+
+    this.state = {
+      videos: [],
+      currentVideo: null
+    };
   }
 
-  hasBeenClicked(video) {
+  componentDidMount() {
+    this.getYouTubeVideos('react tutorials');
+  }
+
+  getYouTubeVideos(query) {
+    var options = {
+      key: this.props.API_KEY,
+      query: query
+    };
+
+    this.props.searchYouTube(options, (videos) =>
+      this.setState({
+        videos: videos,
+        currentVideo: videos[0]
+      })
+    );
+  }
+
+  handleVideoListEntryTitleClick(video) {
     this.setState({
-      current: video
+      currentVideo: video
     });
-  }
-
-  getVideos(video) {
-    this.setState({
-      current: video.items[0],
-      videos: video.items
-    });
-  }
-
-  search() {
-    searchYouTube(this.getVideos.bind(this));
   }
 
   render() {
     return (
       <div>
-      <Nav btnSearch={this.search.bind(this)} />
-       <div className="col-md-7">
-         <VideoPlayer video={this.state.current} />
-       </div>
-       <div className="col-md-5">
-         <VideoList ent={this.hasBeenClicked.bind(this)} videos={this.state.videos} />
-       </div>
-     </div>
+        <Nav
+          handleSearchInputChange={this.getYouTubeVideos.bind(this)}
+        />
+        <div className="col-md-7">
+          <VideoPlayer video={this.state.currentVideo}/>
+        </div>
+        <div className="col-md-5">
+          <VideoList
+            handleVideoListEntryTitleClick={this.handleVideoListEntryTitleClick.bind(this)}
+            videos={this.state.videos}
+          />
+        </div>
+      </div>
     );
-
   }
 }
+
+window.App = App;
